@@ -8,6 +8,7 @@ Replicaset MongoDB:
 
 Implementación de un replicaset compuesto por 4 nodos para alta disponibilidad y tolerancia a fallos.
 Sincronización en tiempo real y distribución de lecturas en nodos secundarios.
+
 Flask y PyMongo:
 
 Panel de administración para gestión de usuarios y contraseñas con autenticación segura.
@@ -18,8 +19,11 @@ Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básic
 Monitorización:
 
 Prometheus y Grafana: Recolección y visualización de métricas.
+
 AlertManager y Discord: Sistema de alertas en tiempo real.
+
 Loki y Promtail: Gestión y visualización de logs.
+
 Backup y Seguridad:
 
 Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
