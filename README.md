@@ -19,11 +19,11 @@ Mongo Express: Interfaz gráfica para operaciones CRUD, gestión de índices y m
 
 Monitorización:
 
-Prometheus y Grafana: Recolección y visualización de métricas.
+- Prometheus y Grafana: Recolección y visualización de métricas.
 
-AlertManager y Discord: Sistema de alertas en tiempo real.
+- AlertManager y Discord: Sistema de alertas en tiempo real.
 
-Loki y Promtail: Gestión y visualización de logs.
+- Loki y Promtail: Gestión y visualización de logs.
 
 Backup y Seguridad: Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
 
