@@ -13,6 +13,7 @@ Flask y PyMongo:
 
 Panel de administración para gestión de usuarios y contraseñas con autenticación segura.
 Panel de clientes para consulta de datos con interfaces HTML/CSS y scripts backend en PyMongo.
+
 Mongo Express:
 
 Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básico de bases de datos.
@@ -27,13 +28,15 @@ Loki y Promtail: Gestión y visualización de logs.
 Backup y Seguridad:
 
 Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
+
 Proxy inverso y certificados SSL mediante Nginx Proxy Manager.
 
 📂 Estructura del Proyecto
 
 El proyecto está completamente automatizado y se gestiona mediante archivos YAML. Se incluye un manual detallado con los pasos para desplegar y configurar la infraestructura, disponible en el archivo PDF adjunto al repositorio.
 
-Servicios Incluidos
+Servicios Incluidos:
+
 MongoDB Replicaset
 Flask con PyMongo
 Mongo Express
