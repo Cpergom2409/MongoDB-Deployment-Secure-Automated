@@ -44,7 +44,9 @@ Servicios Incluidos:
 
 📜 Manual de Uso
 
-Para más detalles, consulta el manual adjunto en este repositorio: [Nombre_del_archivo].pdf. Incluye:
+Para más detalles, consulta el manual adjunto en este repositorio: MongoDB-Deployment-Secure-Automated_By_Cristian_Pérez_Gómez.pdf. 
+
+Incluye:
 
 - Configuración inicial
 - Ejemplos de código
