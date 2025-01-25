@@ -23,9 +23,7 @@ AlertManager y Discord: Sistema de alertas en tiempo real.
 
 Loki y Promtail: Gestión y visualización de logs.
 
-Backup y Seguridad:
-
-Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
+Backup y Seguridad: Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
 
 Proxy inverso y certificados SSL mediante Nginx Proxy Manager.
 
