@@ -1,0 +1,5 @@
+[
+    { "_id": 1, "movieId": 101, "theaterId": 1, "startTime": "2024-12-22T18:00:00Z", "endTime": "2024-12-22T20:30:00Z" },
+    { "_id": 2, "movieId": 102, "theaterId": 2, "startTime": "2024-12-23T20:00:00Z", "endTime": "2024-12-23T22:30:00Z" }
+  ]
+  

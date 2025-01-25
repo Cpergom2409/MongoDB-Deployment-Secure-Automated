@@ -1,0 +1,226 @@
+services:
+  mongo-primary:
+    image: mongo:6.0
+    container_name: mongo-primary
+    networks:
+      - mongo-cluster
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=frodo
+      - MONGO_INITDB_ROOT_PASSWORD=bolson
+    volumes:
+      - ~/mongo-data/mongo-primary:/data/db
+      - ./mongo-keyfile:/data/configdb/mongo-keyfile
+      - ./mongo-bdd:/data/import
+      - ./mongo-logs:/var/log/mongodb
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/data/configdb/mongo-keyfile"]
+
+  mongo-secondary-1:
+    image: mongo:6.0
+    container_name: mongo-secondary-1
+    networks:
+      - mongo-cluster
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=frodo
+      - MONGO_INITDB_ROOT_PASSWORD=bolson
+    volumes:
+      - ~/mongo-data/mongo-secondary-1:/data/db
+      - ./mongo-keyfile:/data/configdb/mongo-keyfile
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/data/configdb/mongo-keyfile"]
+
+  mongo-secondary-2:
+    image: mongo:6.0
+    container_name: mongo-secondary-2
+    networks:
+      - mongo-cluster
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=frodo
+      - MONGO_INITDB_ROOT_PASSWORD=bolson
+    volumes:
+      - ~/mongo-data/mongo-secondary-2:/data/db
+      - ./mongo-keyfile:/data/configdb/mongo-keyfile
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/data/configdb/mongo-keyfile"]
+
+  mongo-secondary-3:
+    image: mongo:6.0
+    container_name: mongo-secondary-3
+    networks:
+      - mongo-cluster
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=frodo
+      - MONGO_INITDB_ROOT_PASSWORD=bolson
+    volumes:
+      - ~/mongo-data/mongo-secondary-3:/data/db
+      - ./mongo-keyfile:/data/configdb/mongo-keyfile
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/data/configdb/mongo-keyfile"]
+
+  mongo-arbiter:
+    image: mongo:6.0
+    container_name: mongo-arbiter
+    networks:
+      - mongo-cluster
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=frodo
+      - MONGO_INITDB_ROOT_PASSWORD=bolson
+    volumes:
+      - ~/mongo-data/mongo-arbiter:/data/db
+      - ./mongo-keyfile:/data/configdb/mongo-keyfile
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/data/configdb/mongo-keyfile"]
+
+  flask-server:
+    build:
+      context: ./mongo-resources
+    container_name: flask-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mongo-resources:/app
+    networks:
+      - mongo-cluster
+
+  flask-server-client:
+    build:
+      context: ./mongo-resources-client
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo-primary
+    environment:
+      - MONGO_URI=mongodb://mongo-primary:27017/
+    volumes:
+      - ./mongo-resources-client:/app
+    networks:
+      - mongo-cluster
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo-primary
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=frodo
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=bolson
+      - ME_CONFIG_MONGODB_SERVER=mongo-primary
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_OPTIONS_AUTHENTICATION_DATABASE=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=frodo
+      - ME_CONFIG_BASICAUTH_PASSWORD=bolson
+    networks:
+      - mongo-cluster
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - mongo-cluster
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=bolson
+    ports:
+      - "3000:3000"
+    networks:
+      - mongo-cluster
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    networks:
+      - mongo-cluster
+
+  discord-alerts:
+    image: benjojo/alertmanager-discord
+    container_name: discord-alerts
+    restart: unless-stopped
+    environment:
+      DISCORD_WEBHOOK: 'https://discord.com/api/webhooks/1324315658732961844/B9n3a1ymG6sZdAQxU32EPjhgHZwWq5Uroqqqt8YhujcLF2NXfdEh9FJ61qDGIghlZJ2j'
+    ports:
+      - "9094:9094"
+    networks:
+      - mongo-cluster
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.46.0
+    container_name: cadvisor
+    ports:
+      - "9323:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - mongo-cluster
+
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/loki-config.yml
+      - loki-data:/loki
+    networks:
+      - mongo-cluster
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: promtail
+    volumes:
+      - ./promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+      - /var/log:/var/log
+    networks:
+      - mongo-cluster
+    depends_on:
+      - loki
+
+  duplicati:
+    image: duplicati/duplicati:latest
+    container_name: duplicati
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./mongo-data:/source
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - DUPLICATI__WEB__USERNAME=frodo
+      - DUPLICATI__WEB__PASSWORD=bolson
+    networks:
+      - mongo-cluster
+
+  app:
+    image: 'docker.io/jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - mongo-cluster
+
+networks:
+  mongo-cluster:
+    driver: bridge
+
+volumes:
+  grafana-data:
+  loki-data:

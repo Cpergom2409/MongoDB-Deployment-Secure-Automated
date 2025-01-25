@@ -1,0 +1,13 @@
+groups:
+  - name: container-alerts
+    rules:
+      - alert: ContainerDown
+        expr: up{job="docker"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Docker Container Down"
+          description: "The container {{ $labels.container }} is down."
+          message: "Check the container {{ $labels.container }} in your cluster."
+
