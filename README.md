@@ -34,7 +34,7 @@ Backup y Seguridad:
 
 Proxy inverso y certificados: 
 
-Proxy inverso y certificados SSL mediante Nginx Proxy Manager.
+- Proxy inverso y certificados SSL mediante Nginx Proxy Manager.
 
 📂 Estructura del Proyecto
 
