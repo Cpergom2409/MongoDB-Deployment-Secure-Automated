@@ -35,28 +35,30 @@ El proyecto está completamente automatizado y se gestiona mediante archivos YAM
 
 Servicios Incluidos:
 
-MongoDB Replicaset
-Flask con PyMongo
-Mongo Express
-Prometheus, Grafana, Loki y AlertManager
-Duplicati para copias de seguridad
-Nginx Proxy Manager para securizar el acceso
+- MongoDB Replicaset
+- Flask con PyMongo
+- Mongo Express
+- Prometheus, Grafana, Loki y AlertManager
+- Duplicati para copias de seguridad
+- Nginx Proxy Manager para securizar el acceso
 
 📜 Manual de Uso
 
 Para más detalles, consulta el manual adjunto en este repositorio: [Nombre_del_archivo].pdf. Incluye:
 
-Configuración inicial
-Ejemplos de código
-Pruebas funcionales
-Guía paso a paso para desplegar la infraestructura.
+- Configuración inicial
+- Ejemplos de código
+- Pruebas funcionales
+- Guía paso a paso para desplegar la infraestructura.
 
 👤 Contacto
 
 Si tienes dudas, sugerencias o deseas contribuir al proyecto, no dudes en contactarme:
 
 Creador: Cristian Pérez Gómez
+
 Email: cpergom2409@gmail.com
+
 Linkedin: www.linkedin.com/in/cristian-pérez-356961262
 
 ¡Agradezco cualquier aportación de la comunidad!
