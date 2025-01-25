@@ -14,9 +14,7 @@ Flask y PyMongo:
 Panel de administración para gestión de usuarios y contraseñas con autenticación segura.
 Panel de clientes para consulta de datos con interfaces HTML/CSS y scripts backend en PyMongo.
 
-Mongo Express:
-
-Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básico de bases de datos.
+Mongo Express: Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básico de bases de datos.
 Monitorización:
 
 Prometheus y Grafana: Recolección y visualización de métricas.
