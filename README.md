@@ -6,8 +6,9 @@ Este proyecto tiene como objetivo proporcionar una solución automatizada y segu
 
 Replicaset MongoDB:
 
-Implementación de un replicaset compuesto por 5 nodos para alta disponibilidad y tolerancia a fallos.
-Sincronización en tiempo real y distribución de lecturas en nodos secundarios.
+- Implementación de un replicaset compuesto por 5 nodos para alta disponibilidad y tolerancia a fallos.
+  
+- Sincronización en tiempo real y distribución de lecturas en nodos secundarios.
 
 Flask y PyMongo:
 
