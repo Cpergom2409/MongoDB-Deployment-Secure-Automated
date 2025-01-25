@@ -16,7 +16,9 @@ Flask y PyMongo:
   
 - Panel de clientes para consulta de datos con interfaces HTML/CSS y scripts backend en PyMongo.
 
-Mongo Express: Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básico de bases de datos.
+Mongo Express: 
+
+- Interfaz gráfica para operaciones CRUD, gestión de índices y monitoreo básico de bases de datos.
 
 Monitorización:
 
@@ -26,7 +28,11 @@ Monitorización:
 
 - Loki y Promtail: Gestión y visualización de logs.
 
-Backup y Seguridad: Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
+Backup y Seguridad:
+
+- Copias de seguridad automáticas con Duplicati y almacenamiento en Google Drive.
+
+Proxy inverso y certificados: 
 
 Proxy inverso y certificados SSL mediante Nginx Proxy Manager.
 
